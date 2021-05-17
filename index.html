@@ -14259,7 +14259,35 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="-"> <a class="anchor-link" href="#-">&#182;</a></h1>
+<h1 id="Data-Science:-An-Analysis-On-College-Tuition-And-Career-Pay">Data Science: An Analysis On College Tuition And Career Pay<a class="anchor-link" href="#Data-Science:-An-Analysis-On-College-Tuition-And-Career-Pay">&#182;</a></h1><p>by Raymond Su</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Introduction-and-Background">Introduction and Background<a class="anchor-link" href="#Introduction-and-Background">&#182;</a></h1><h2 id="The-Price-Of-College">The Price Of College<a class="anchor-link" href="#The-Price-Of-College">&#182;</a></h2><p>College is an increasingly important aspect of modern skills development. Thus, the worthiness of a university education is a critical question that many people have to answer as they reach adulthood. Oftentimes, the most pressing concern is cost. The scale of modern tuition is considerable, not even including the price of years of time and effort.</p>
+<p>As fee-taking, application based institutions with extensive public engagement, raw data on universities is available. Additionally, the rapid growth of universities in recent times has provided a dearth of information on a wide variety of schools and student populations. This is a scenario where the Data Science Pipeline has an opening to exploit.</p>
+<h2 id="The-Data-Science-Pipeline">The Data Science Pipeline<a class="anchor-link" href="#The-Data-Science-Pipeline">&#182;</a></h2><p>The field and applicaation of Data Science is varied and myriad. Nonetheless, many projects tend to follow a generalized trend of five distinct steps for investigating a dataset. This tutorial walks through the data science pipeline step by step, illustrating, explanining and justifying the decision making process at every section. For context moving forward, it's relevant to briefly go through all five.</p>
+<ol>
+<li>First, a data source must be found and collected.</li>
+<li>Second, the raw data has to be managed and represented into a usable form.</li>
+<li>Third, the prepared representation of the data should be explored for possible leads towards new insights.</li>
+<li>Fourth, drawing from data exploration, a hypothesis or predictive relationship needs to be investigated in a more systematic manner.</li>
+<li>Fifth, a conclusion and discussion should be done on the findings.</li>
+</ol>
+<h2 id="So,-let's-begin-with-finding-a-good-data-source!">So, let's begin with finding a good data source!<a class="anchor-link" href="#So,-let's-begin-with-finding-a-good-data-source!">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Part-1-and-2:-Data-Source,-Cleaning-and-Tidying">Part 1 and 2: Data Source, Cleaning and Tidying<a class="anchor-link" href="#Part-1-and-2:-Data-Source,-Cleaning-and-Tidying">&#182;</a></h1>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Library-Imports">Library Imports<a class="anchor-link" href="#Library-Imports">&#182;</a></h2><p>To do our data manipulation and analysis, we'll need to use libraries. Which libraries are most appropriate to use can vary quite a bit from project. Here, some of the them are for data manipulation and support functions (pandas and numpy), others are for data visualization (matplotlib), and two are statistical analysis and machine learning (sklearn and statsmodel).</p>
+<p>To figure out whether or not an import will be appropriate for your intended application, it's useful to go through the writeups that come with any reliable library in Python. You can find more about numpy, pandas, matploblib and sklearn through these links.</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -14267,19 +14295,24 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Library Imports</span>
+
+<span class="c1"># For data manipulation and analysis.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># For data visualization.</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">figure</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="c1"># For statistical modeling and machine learning.</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
 
-<span class="c1"># from IPython.core.interactiveshell import InteractiveShell</span>
-<span class="c1"># InteractiveShell.ast_node_interactivity = &quot;all&quot;</span>
-<span class="n">std_figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
-<span class="n">states</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AL&quot;</span><span class="p">:</span><span class="s2">&quot;Alabama&quot;</span><span class="p">,</span><span class="s2">&quot;AK&quot;</span><span class="p">:</span><span class="s2">&quot;Alaska&quot;</span><span class="p">,</span><span class="s2">&quot;AZ&quot;</span><span class="p">:</span><span class="s2">&quot;Arizona&quot;</span><span class="p">,</span><span class="s2">&quot;AR&quot;</span><span class="p">:</span><span class="s2">&quot;Arkansas&quot;</span><span class="p">,</span><span class="s2">&quot;CA&quot;</span><span class="p">:</span><span class="s2">&quot;California&quot;</span><span class="p">,</span><span class="s2">&quot;CO&quot;</span><span class="p">:</span><span class="s2">&quot;Colorado&quot;</span><span class="p">,</span><span class="s2">&quot;CT&quot;</span><span class="p">:</span><span class="s2">&quot;Connecticut&quot;</span><span class="p">,</span><span class="s2">&quot;DE&quot;</span><span class="p">:</span><span class="s2">&quot;Delaware&quot;</span><span class="p">,</span><span class="s2">&quot;FL&quot;</span><span class="p">:</span><span class="s2">&quot;Florida&quot;</span><span class="p">,</span><span class="s2">&quot;GA&quot;</span><span class="p">:</span><span class="s2">&quot;Georgia&quot;</span><span class="p">,</span><span class="s2">&quot;HI&quot;</span><span class="p">:</span><span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span><span class="s2">&quot;ID&quot;</span><span class="p">:</span><span class="s2">&quot;Idaho&quot;</span><span class="p">,</span><span class="s2">&quot;IL&quot;</span><span class="p">:</span><span class="s2">&quot;Illinois&quot;</span><span class="p">,</span><span class="s2">&quot;IN&quot;</span><span class="p">:</span><span class="s2">&quot;Indiana&quot;</span><span class="p">,</span><span class="s2">&quot;IA&quot;</span><span class="p">:</span><span class="s2">&quot;Iowa&quot;</span><span class="p">,</span><span class="s2">&quot;KS&quot;</span><span class="p">:</span><span class="s2">&quot;Kansas&quot;</span><span class="p">,</span><span class="s2">&quot;KY&quot;</span><span class="p">:</span><span class="s2">&quot;Kentucky&quot;</span><span class="p">,</span><span class="s2">&quot;LA&quot;</span><span class="p">:</span><span class="s2">&quot;Louisiana&quot;</span><span class="p">,</span><span class="s2">&quot;ME&quot;</span><span class="p">:</span><span class="s2">&quot;Maine&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">:</span><span class="s2">&quot;Maryland&quot;</span><span class="p">,</span><span class="s2">&quot;MA&quot;</span><span class="p">:</span><span class="s2">&quot;Massachusetts&quot;</span><span class="p">,</span><span class="s2">&quot;MI&quot;</span><span class="p">:</span><span class="s2">&quot;Michigan&quot;</span><span class="p">,</span><span class="s2">&quot;MN&quot;</span><span class="p">:</span><span class="s2">&quot;Minnesota&quot;</span><span class="p">,</span><span class="s2">&quot;MS&quot;</span><span class="p">:</span><span class="s2">&quot;Mississippi&quot;</span><span class="p">,</span><span class="s2">&quot;MO&quot;</span><span class="p">:</span><span class="s2">&quot;Missouri&quot;</span><span class="p">,</span><span class="s2">&quot;MT&quot;</span><span class="p">:</span><span class="s2">&quot;Montana&quot;</span><span class="p">,</span><span class="s2">&quot;NE&quot;</span><span class="p">:</span><span class="s2">&quot;Nebraska&quot;</span><span class="p">,</span><span class="s2">&quot;NV&quot;</span><span class="p">:</span><span class="s2">&quot;Nevada&quot;</span><span class="p">,</span><span class="s2">&quot;NH&quot;</span><span class="p">:</span><span class="s2">&quot;New Hampshire&quot;</span><span class="p">,</span><span class="s2">&quot;NJ&quot;</span><span class="p">:</span><span class="s2">&quot;New Jersey&quot;</span><span class="p">,</span><span class="s2">&quot;NM&quot;</span><span class="p">:</span><span class="s2">&quot;New Mexico&quot;</span><span class="p">,</span><span class="s2">&quot;NY&quot;</span><span class="p">:</span><span class="s2">&quot;New York&quot;</span><span class="p">,</span><span class="s2">&quot;NC&quot;</span><span class="p">:</span><span class="s2">&quot;North Carolina&quot;</span><span class="p">,</span><span class="s2">&quot;ND&quot;</span><span class="p">:</span><span class="s2">&quot;North Dakota&quot;</span><span class="p">,</span><span class="s2">&quot;OH&quot;</span><span class="p">:</span><span class="s2">&quot;Ohio&quot;</span><span class="p">,</span><span class="s2">&quot;OK&quot;</span><span class="p">:</span><span class="s2">&quot;Oklahoma&quot;</span><span class="p">,</span><span class="s2">&quot;OR&quot;</span><span class="p">:</span><span class="s2">&quot;Oregon&quot;</span><span class="p">,</span><span class="s2">&quot;PA&quot;</span><span class="p">:</span><span class="s2">&quot;Pennsylvania&quot;</span><span class="p">,</span><span class="s2">&quot;RI&quot;</span><span class="p">:</span><span class="s2">&quot;Rhode Island&quot;</span><span class="p">,</span><span class="s2">&quot;SC&quot;</span><span class="p">:</span><span class="s2">&quot;South Carolina&quot;</span><span class="p">,</span><span class="s2">&quot;SD&quot;</span><span class="p">:</span><span class="s2">&quot;South Dakota&quot;</span><span class="p">,</span><span class="s2">&quot;TN&quot;</span><span class="p">:</span><span class="s2">&quot;Tennessee&quot;</span><span class="p">,</span><span class="s2">&quot;TX&quot;</span><span class="p">:</span><span class="s2">&quot;Texas&quot;</span><span class="p">,</span><span class="s2">&quot;UT&quot;</span><span class="p">:</span><span class="s2">&quot;Utah&quot;</span><span class="p">,</span><span class="s2">&quot;VT&quot;</span><span class="p">:</span><span class="s2">&quot;Vermont&quot;</span><span class="p">,</span><span class="s2">&quot;VA&quot;</span><span class="p">:</span><span class="s2">&quot;Virginia&quot;</span><span class="p">,</span><span class="s2">&quot;WA&quot;</span><span class="p">:</span><span class="s2">&quot;Washington&quot;</span><span class="p">,</span><span class="s2">&quot;WV&quot;</span><span class="p">:</span><span class="s2">&quot;West Virginia&quot;</span><span class="p">,</span><span class="s2">&quot;WI&quot;</span><span class="p">:</span><span class="s2">&quot;Wisconsin&quot;</span><span class="p">,</span><span class="s2">&quot;WY&quot;</span><span class="p">:</span><span class="s2">&quot;Wyoming&quot;</span><span class="p">}</span>
+<span class="c1"># Simple, hard-coded dictionary for translating state names.</span>
+<span class="c1"># states = {&quot;AL&quot;:&quot;Alabama&quot;,&quot;AK&quot;:&quot;Alaska&quot;,&quot;AZ&quot;:&quot;Arizona&quot;,&quot;AR&quot;:&quot;Arkansas&quot;,&quot;CA&quot;:&quot;California&quot;,&quot;CO&quot;:&quot;Colorado&quot;,&quot;CT&quot;:&quot;Connecticut&quot;,&quot;DE&quot;:&quot;Delaware&quot;,&quot;FL&quot;:&quot;Florida&quot;,&quot;GA&quot;:&quot;Georgia&quot;,&quot;HI&quot;:&quot;Hawaii&quot;,&quot;ID&quot;:&quot;Idaho&quot;,&quot;IL&quot;:&quot;Illinois&quot;,&quot;IN&quot;:&quot;Indiana&quot;,&quot;IA&quot;:&quot;Iowa&quot;,&quot;KS&quot;:&quot;Kansas&quot;,&quot;KY&quot;:&quot;Kentucky&quot;,&quot;LA&quot;:&quot;Louisiana&quot;,&quot;ME&quot;:&quot;Maine&quot;,&quot;MD&quot;:&quot;Maryland&quot;,&quot;MA&quot;:&quot;Massachusetts&quot;,&quot;MI&quot;:&quot;Michigan&quot;,&quot;MN&quot;:&quot;Minnesota&quot;,&quot;MS&quot;:&quot;Mississippi&quot;,&quot;MO&quot;:&quot;Missouri&quot;,&quot;MT&quot;:&quot;Montana&quot;,&quot;NE&quot;:&quot;Nebraska&quot;,&quot;NV&quot;:&quot;Nevada&quot;,&quot;NH&quot;:&quot;New Hampshire&quot;,&quot;NJ&quot;:&quot;New Jersey&quot;,&quot;NM&quot;:&quot;New Mexico&quot;,&quot;NY&quot;:&quot;New York&quot;,&quot;NC&quot;:&quot;North Carolina&quot;,&quot;ND&quot;:&quot;North Dakota&quot;,&quot;OH&quot;:&quot;Ohio&quot;,&quot;OK&quot;:&quot;Oklahoma&quot;,&quot;OR&quot;:&quot;Oregon&quot;,&quot;PA&quot;:&quot;Pennsylvania&quot;,&quot;RI&quot;:&quot;Rhode Island&quot;,&quot;SC&quot;:&quot;South Carolina&quot;,&quot;SD&quot;:&quot;South Dakota&quot;,&quot;TN&quot;:&quot;Tennessee&quot;,&quot;TX&quot;:&quot;Texas&quot;,&quot;UT&quot;:&quot;Utah&quot;,&quot;VT&quot;:&quot;Vermont&quot;,&quot;VA&quot;:&quot;Virginia&quot;,&quot;WA&quot;:&quot;Washington&quot;,&quot;WV&quot;:&quot;West Virginia&quot;,&quot;WI&quot;:&quot;Wisconsin&quot;,&quot;WY&quot;:&quot;Wyoming&quot;}</span>
 </pre></div>
 
      </div>
@@ -14287,13 +14320,22 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Data-Source">Data Source<a class="anchor-link" href="#Data-Source">&#182;</a></h1><p>We'll be using a few pre-collated sets of raw data on college cost and related information. The specific set was drawn from the Chronicle of Higher Education, a well-known and reliable publication on university data, potential salary data from payscale.com (methodology described here), and income information by state from the United States Census Bureau. The specific files can either be extracted from each site individually or downloaded from a publically available collection here, where some non-mutation reorganization was done to make the data easier to clean.</p>
+<p><a href="https://www.payscale.com/college-salary-report/methodology">https://www.payscale.com/college-salary-report/methodology</a></p>
+<h1 id="Data-Representation">Data Representation<a class="anchor-link" href="#Data-Representation">&#182;</a></h1><p>Now that we have our raw data in the form of a collection of Comma-Delimited Value (CSV) files, we'll need to get them into a form that we can manipulate and perform analysis on. We'll be using the dataframe structure provided by the pandas library for this purpose. A dataframe stores information in column categories, row-by-row, a common approach that allow for a wide variety of analysis techniques to be applied. Additionally, it's relatively simple and easy to perform mutations based on categories or subsets of the data, a consideration that matters for both cleanup and later analysis.</p>
+<h2 id="The-code-below-sources-the-data-and-moves-it-into-a-set-of-local-dataframes.">The code below sources the data and moves it into a set of local dataframes.<a class="anchor-link" href="#The-code-below-sources-the-data-and-moves-it-into-a-set-of-local-dataframes.">&#182;</a></h2>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tuition_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;tuition_cost.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Getting the raw data, in the form of locally downloaded source files, into a dataframe representation.</span>
+<span class="n">tuition_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;tuition_cost.csv&quot;</span><span class="p">)</span>
 <span class="n">salary_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;salary_potential.csv&quot;</span><span class="p">)</span>
 <span class="n">state_income_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;median-income-2018.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;State&#39;</span><span class="p">:</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;Median Income&#39;</span><span class="p">:</span><span class="s1">&#39;median_income&#39;</span><span class="p">,</span> <span class="s1">&#39;Standard Error&#39;</span><span class="p">:</span><span class="s1">&#39;std_err&#39;</span><span class="p">})</span>
 <span class="n">tuition_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -14312,7 +14354,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
 
 
 
@@ -14422,20 +14464,6 @@ a.anchor-link {
 
 </div>
 
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14554,17 +14582,31 @@ a.anchor-link {
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Data-Tidying-And-Cleanup">Data Tidying And Cleanup<a class="anchor-link" href="#Data-Tidying-And-Cleanup">&#182;</a></h1><h2 id="Dataframe-Merge">Dataframe Merge<a class="anchor-link" href="#Dataframe-Merge">&#182;</a></h2><p>Now that our data are stored locally, we can start doing some tidying to get them into a more usable form for our analysis. The tuition dataframe tracks facts like the type, cost and degree length of a very large collection of colleges. The salary dataframe records the average pay of students early in their careers (midway through the first five years of their job) and later, after the first five years. We'll need to combine them, extending rows inside the tuition dataframe (where most of our target data is) with rows from the salary dataframe, which includes an important statistic we seek.</p>
+<p>To do so, we can use the merge() function included with a pandas dataframe. The function can join rows between two dataframes based on critera, which we specify in the code below as being based on university name. Additionally, we can tack on information from the average state income dataframe as well.</p>
+<h2 id="Notes-On-Cleanup-And-Dropped-Columns">Notes On Cleanup And Dropped Columns<a class="anchor-link" href="#Notes-On-Cleanup-And-Dropped-Columns">&#182;</a></h2><p>The merge routine handles quite a bit of the cleanup for us. It only combines rows that match the critera, creating a new dataframe with just the information that met the critera we listed above. While it's not shown, none of the rows ended up having any missing data, since the source data was drawn from a series of reliable and pre-maintained datasets.</p>
+<p>We're also going to be dropping and adding a few columns, which is discussed in the next text section.</p>
+<h2 id="Merging-the-dataframes,-adding-columns,-dropping-unneeded-ones">Merging the dataframes, adding columns, dropping unneeded ones<a class="anchor-link" href="#Merging-the-dataframes,-adding-columns,-dropping-unneeded-ones">&#182;</a></h2>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged_df</span> <span class="o">=</span> <span class="n">tuition_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">salary_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">state_income_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Creating a merged dataframe between the tuition, salary and state income dataframes.</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">tuition_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">salary_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">state_income_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>
 
 <span class="c1"># Adding a few columns we&#39;ll need later.</span>
 <span class="n">merged_df</span><span class="p">[</span><span class="s1">&#39;discount_tuition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
+<span class="c1"># Dropping unneeded columns.</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;room_and_board&quot;</span><span class="p">,</span> <span class="s2">&quot;in_state_total&quot;</span><span class="p">,</span> <span class="s2">&quot;out_of_state_total&quot;</span><span class="p">,</span> <span class="s2">&quot;make_world_better_percent&quot;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Showing the dataframe.</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of rows: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)))</span>
 <span class="n">merged_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -14594,7 +14636,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
 
 
 
@@ -14622,16 +14664,12 @@ a.anchor-link {
       <th>state_code</th>
       <th>type</th>
       <th>degree_length</th>
-      <th>room_and_board</th>
       <th>in_state_tuition</th>
-      <th>in_state_total</th>
       <th>out_of_state_tuition</th>
-      <th>out_of_state_total</th>
       <th>rank</th>
       <th>state_name</th>
       <th>early_career_pay</th>
       <th>mid_career_pay</th>
-      <th>make_world_better_percent</th>
       <th>stem_percent</th>
       <th>median_income</th>
       <th>std_err</th>
@@ -14646,16 +14684,12 @@ a.anchor-link {
       <td>CO</td>
       <td>Public</td>
       <td>4 Year</td>
-      <td>8782.0</td>
       <td>9440</td>
-      <td>18222</td>
       <td>20456</td>
-      <td>29238</td>
       <td>16</td>
       <td>Colorado</td>
       <td>44400</td>
       <td>81400</td>
-      <td>56.0</td>
       <td>3</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14668,16 +14702,12 @@ a.anchor-link {
       <td>CO</td>
       <td>Private</td>
       <td>4 Year</td>
-      <td>11846.0</td>
       <td>31866</td>
-      <td>43712</td>
       <td>31866</td>
-      <td>43712</td>
       <td>17</td>
       <td>Colorado</td>
       <td>46800</td>
       <td>80100</td>
-      <td>70.0</td>
       <td>2</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14690,16 +14720,12 @@ a.anchor-link {
       <td>CO</td>
       <td>Private</td>
       <td>4 Year</td>
-      <td>12512.0</td>
       <td>55470</td>
-      <td>67982</td>
       <td>55470</td>
-      <td>67982</td>
       <td>5</td>
       <td>Colorado</td>
       <td>53100</td>
       <td>97900</td>
-      <td>48.0</td>
       <td>23</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14712,16 +14738,12 @@ a.anchor-link {
       <td>CO</td>
       <td>Public</td>
       <td>4 Year</td>
-      <td>10925.0</td>
       <td>9243</td>
-      <td>20168</td>
       <td>22440</td>
-      <td>33365</td>
       <td>14</td>
       <td>Colorado</td>
       <td>47800</td>
       <td>81500</td>
-      <td>55.0</td>
       <td>7</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14734,16 +14756,12 @@ a.anchor-link {
       <td>CO</td>
       <td>Public</td>
       <td>4 Year</td>
-      <td>13169.0</td>
       <td>18964</td>
-      <td>32133</td>
       <td>38584</td>
-      <td>51753</td>
       <td>1</td>
       <td>Colorado</td>
       <td>75600</td>
       <td>139600</td>
-      <td>60.0</td>
       <td>93</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14760,13 +14778,27 @@ a.anchor-link {
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Post-Merge-Table">Post Merge Table<a class="anchor-link" href="#Post-Merge-Table">&#182;</a></h2><p>The number of entries left, comfortably in the hundreds, looks large enough relative to the original dataframe size to do analysis on. While it's not shown here, none of the universities left were 2-year institutions, meaning that we could drop the row altogether. Again, what rows were dropped and why is discussed in more detail later, since it's a little bit cleaner to do so when the table is fully tidied.</p>
+<h2 id="Discount-Column">Discount Column<a class="anchor-link" href="#Discount-Column">&#182;</a></h2><p>Many schools offer very significant discounts for in-state students, but many schools don't. In the cases where they don't, the values between the out_of_state and in_state tuition columns are equal. This would be a major source of skew when analyzing the data, so we need to mark whether or not has an actual discount associated with their state status. Since it's a binary variable, we can track it is as a column of boolean values. To that end we have created a new column called "discount_tuition".</p>
+<p>Below, we iterate through the array and set the value of discount tuition appropriately. Additionally, we do a simple count of the number of public and private schools that offer discounts, to get a sense on what the number is like.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Doing-Processing-To-Fill-Up-New-Discount-Tuition-Column">Doing Processing To Fill Up New Discount Tuition Column<a class="anchor-link" href="#Doing-Processing-To-Fill-Up-New-Discount-Tuition-Column">&#182;</a></h2>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">public_same_charge</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tracking which schools offer discounts.</span>
+<span class="n">public_same_charge</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">private_same_charge</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">discount_schools</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -14826,7 +14858,7 @@ The number of schools that discount in-state tuition: 264
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
 
 
 
@@ -14854,16 +14886,12 @@ The number of schools that discount in-state tuition: 264
       <th>state_code</th>
       <th>type</th>
       <th>degree_length</th>
-      <th>room_and_board</th>
       <th>in_state_tuition</th>
-      <th>in_state_total</th>
       <th>out_of_state_tuition</th>
-      <th>out_of_state_total</th>
       <th>rank</th>
       <th>state_name</th>
       <th>early_career_pay</th>
       <th>mid_career_pay</th>
-      <th>make_world_better_percent</th>
       <th>stem_percent</th>
       <th>median_income</th>
       <th>std_err</th>
@@ -14878,16 +14906,12 @@ The number of schools that discount in-state tuition: 264
       <td>CO</td>
       <td>Public</td>
       <td>4 Year</td>
-      <td>8782.0</td>
       <td>9440</td>
-      <td>18222</td>
       <td>20456</td>
-      <td>29238</td>
       <td>16</td>
       <td>Colorado</td>
       <td>44400</td>
       <td>81400</td>
-      <td>56.0</td>
       <td>3</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14900,16 +14924,12 @@ The number of schools that discount in-state tuition: 264
       <td>CO</td>
       <td>Private</td>
       <td>4 Year</td>
-      <td>11846.0</td>
       <td>31866</td>
-      <td>43712</td>
       <td>31866</td>
-      <td>43712</td>
       <td>17</td>
       <td>Colorado</td>
       <td>46800</td>
       <td>80100</td>
-      <td>70.0</td>
       <td>2</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14922,16 +14942,12 @@ The number of schools that discount in-state tuition: 264
       <td>CO</td>
       <td>Private</td>
       <td>4 Year</td>
-      <td>12512.0</td>
       <td>55470</td>
-      <td>67982</td>
       <td>55470</td>
-      <td>67982</td>
       <td>5</td>
       <td>Colorado</td>
       <td>53100</td>
       <td>97900</td>
-      <td>48.0</td>
       <td>23</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14944,16 +14960,12 @@ The number of schools that discount in-state tuition: 264
       <td>CO</td>
       <td>Public</td>
       <td>4 Year</td>
-      <td>10925.0</td>
       <td>9243</td>
-      <td>20168</td>
       <td>22440</td>
-      <td>33365</td>
       <td>14</td>
       <td>Colorado</td>
       <td>47800</td>
       <td>81500</td>
-      <td>55.0</td>
       <td>7</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14966,16 +14978,12 @@ The number of schools that discount in-state tuition: 264
       <td>CO</td>
       <td>Public</td>
       <td>4 Year</td>
-      <td>13169.0</td>
       <td>18964</td>
-      <td>32133</td>
       <td>38584</td>
-      <td>51753</td>
       <td>1</td>
       <td>Colorado</td>
       <td>75600</td>
       <td>139600</td>
-      <td>60.0</td>
       <td>93</td>
       <td>73,034</td>
       <td>3,562</td>
@@ -14992,6 +15000,20 @@ The number of schools that discount in-state tuition: 264
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Tidy-Table,-And-Discussion-On-Dropped-Columns">Tidy Table, And Discussion On Dropped Columns<a class="anchor-link" href="#Tidy-Table,-And-Discussion-On-Dropped-Columns">&#182;</a></h2><p>The table is now tidied.</p>
+<h2 id="Removal-of-room-and-board,-in-state-and-out-of-state-total-cost.">Removal of room and board, in-state and out-of-state total cost.<a class="anchor-link" href="#Removal-of-room-and-board,-in-state-and-out-of-state-total-cost.">&#182;</a></h2><p>The tuition of a school is the price the institution charges for access to classes, faculty, facilities and opportunity. It is the price that the university believes itself to be worth, enough so that students will pay for it. However, the room and board of a school varies for reasons that can well beyond the simple value of the university's education. It can depend on very local circumstances, from the condition of real estate in a university town to the geographic location of the state. There a lot of factors that influence the room and board that can have very little to do with the factors that the cost of tuition represents. Additionally, the cost of standardized room and board are identical between in-state and out-of-state students, meaning that here it represents an addition by a constant on each row, which won't affect any relationship between in-state and out-of-state tuition that we find. Thus, we choose to remove the room and board column, along with its two dependent columns in-state and out-of-state total cost.</p>
+<h2 id="Removal-of-&quot;Make-World-Better-Percent&quot;">Removal of "Make World Better Percent"<a class="anchor-link" href="#Removal-of-&quot;Make-World-Better-Percent&quot;">&#182;</a></h2><p>This column indicates the percentage of students that responded affirmatively to a "make the world better" inquiry. This kind of question is incredibly broad, likely varies school by school for cultural reasons. It's easy for people to interpret such a generic platitude into a very broad critera. This has very little to do with my analysis on school cost, so it was removed.</p>
+<h2 id="And-thus,-we-have-a-tidied-dataset!-We-can-know-do-some-visualization.">And thus, we have a tidied dataset! We can know do some visualization.<a class="anchor-link" href="#And-thus,-we-have-a-tidied-dataset!-We-can-know-do-some-visualization.">&#182;</a></h2><h3 id="Note:-The-discussion-on-the-necessity-of-the-discount-column-is-in-the-previous-text-cell.">Note: The discussion on the necessity of the discount column is in the previous text cell.<a class="anchor-link" href="#Note:-The-discussion-on-the-necessity-of-the-discount-column-is-in-the-previous-text-cell.">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Part-3:-Exploratory-Data-Analysis-And-Data-Visualization">Part 3: Exploratory Data Analysis And Data Visualization<a class="anchor-link" href="#Part-3:-Exploratory-Data-Analysis-And-Data-Visualization">&#182;</a></h1><h2 id="Purpose">Purpose<a class="anchor-link" href="#Purpose">&#182;</a></h2><p>Exploratory data analysis focuses on what the name implies - exploring the data, looking for hints of deeper and more interesting relationships to explore more fully. Where to start and where to go with exploratory analysis can be very subjective. Oftentimes a good way to start is to begin with something broad and direct, where we might be able to spot a deeper pattern to hone in on.</p>
+<h2 id="Let's-begin-with-something-simple-and-hopeful.-Let's-plot-the-two-tuition-standards,-in-state-and-out-of-state,-against-the-early-and-mid-career-salaries-of-students-from-each-university.">Let's begin with something simple and hopeful. Let's plot the two tuition standards, in-state and out-of-state, against the early and mid-career salaries of students from each university.<a class="anchor-link" href="#Let's-begin-with-something-simple-and-hopeful.-Let's-plot-the-two-tuition-standards,-in-state-and-out-of-state,-against-the-early-and-mid-career-salaries-of-students-from-each-university.">&#182;</a></h2>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -15125,6 +15147,20 @@ The number of schools that discount in-state tuition: 264
 
 </div>
 
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># </span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
